@@ -1,0 +1,88 @@
+<tool id="gaiac_sensor_performance_evaluation" name="GAIAC sensor performance evaluation" version="0.1.0" python_template_version="3.10">
+	<description>to evaluate the sensor performance against standard instruments as per US EPA criteria</description>
+
+    <requirements>
+        <requirement type="package" version="3.10">python</requirement>
+        <requirement type="package" version="2.2.3">pandas</requirement>
+        <requirement type="package" version="3.10.1">matplotlib-base</requirement>
+        <requirement type="package" version="1.6.1">scikit-learn</requirement>
+        <requirement type="package" version="1.13.1">seaborn</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/table.py' -I '$infile' --column_1 '$clm2' --column_2 '$clm1' --html_out_dir '$output2.extra_files_path'  --html_file_name '$output2'  
+    ]]></command>
+
+    <inputs>
+      <!--<param name='input' type="data" format="csv"  argument= "input"/>-->
+      <param name="infile" type="data" format="tabular" label="Dataset"/>
+
+      <param name="clm1" label="Select columns containing data from the standard or reference instrument" type="data_column" data_ref="infile" numerical="True" multiple="False" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+      </param>
+
+      <param name="clm2" label="Select columns containing data from instrument under test (sensors)" type="data_column" data_ref="infile" numerical="True" multiple="True" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+      </param>
+    </inputs>
+
+    <outputs>   
+        <data name='output2' format='html' label="Table1.html" />
+    </outputs>
+ 
+    <tests>
+        <test>
+            <!-- input data file -->
+            <param name="infile" value="test.tsv"/>
+
+            <!-- assume clm1 is the 'Reference' column, clm2 is 'SensorA' and 'SensorB' -->
+            <param name="clm1" value="1"/>
+            <param name="clm2" value="1,2"/>
+
+            <!-- expected output html file -->
+            <output name="output2" file="testout.html" compare="contains"/>
+        </test>
+    </tests>
+
+
+     <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool generates a table of the parameters of linear regression (slope, intercept, r, Rsquare, RMSE, NRMSE) and bias calculations as per US EPA recommendation for the low cost sensors against the reference instrument.
+
+  
+-----
+
+**Inputs**
+    Table of parameters    
+        * **--infile** : Input data frame as a tabular (.tsv or .csv) file.
+        * **--column_1** : Select the column containing data from the reference (standard) instrument.
+        * **--column_2** : Select the column containing data from the instrument under test (sensor).
+
+-----
+
+**Outputs**
+    * Returns an html file containing the table of parameters that are required to evaluate sensors against a reference instrument]]></help>
+
+    <citations>
+ <citation type="bibtex">
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+}</citation>
+    </citations>
+</tool>
+
+
+
+
+
+

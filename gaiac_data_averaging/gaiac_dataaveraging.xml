@@ -1,0 +1,85 @@
+<tool id="gaiac_data_averaging_tool" name="GAIAC data averaging tool" version="0.1.0">
+  <description>Returns average values for time series data as per the selected time interval</description>
+
+  <requirements>
+    <requirement type="package" version="3.10">Python</requirement>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+  </requirements>
+
+
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/dataaveraging.py' -I '$input1' -C '$Column' -O '$output' -T '$TimeInt'
+    ]]></command>
+
+  <inputs>
+    <param name="input1" type="data" label="Input file" format="tabular" argument= "--InFile" help="Input csv data file."/>
+    <param name="Column" type='data_column' data_ref="input1"  label="Time Stamp column" argument="--dt_column" multiple="False" use_header_names="true" help="Class Label ex. 0 or 1">
+
+      <validator type="no_options" message="Please select any one column."/>
+    </param>
+
+
+    <param name="TimeInt" label="Time TimeInterval in minutes"  type='text' value="10" argument="--TimeInterval" help="Name of the Column."/>
+  </inputs>
+
+  <outputs>
+    <data name='output' format='tabular' label="Out.tsv" from_work_dir="out.tsv"/> 
+  </outputs>
+
+  <tests>
+    <test>
+      <param name="input1" value="test.tsv"/>
+      <output name="Column" file="1"/>
+      <output name="output" file="out.tsv" ftype="tabular"/>
+    </test>
+  </tests>
+
+   <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool returns the file with averaged data based on the selected time interval in a time series data.
+
+   
+
+-----
+
+**Inputs**
+    Data averaging tool 
+       * **--Input file** Input data frame as a tabular file.   
+       * **--Time stamp column** select the time stamp column in the dataset from the given list.
+       * **--Time interval in minutes** provide the time interval in minutes for which data averaging is to be performed
+       
+       
+    
+    
+
+-----
+
+**Outputs**
+    * Returns file with averaged data based on the selected time interval]]></help>
+
+<citations>
+  <citation type="bibtex">
+
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+
+</tool>

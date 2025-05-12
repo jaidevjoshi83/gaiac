@@ -1,0 +1,92 @@
+<tool id="gaiac_outlier_removal" name="GAIAC outlier handling" version="0.1.0" python_template_version="3.10" >
+  <description> Removes outlier from the dataset</description>
+
+  <requirements>
+    <requirement type="package" version="3.10">python</requirement>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+  </requirements>
+
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/outlier_removal.py' -I '$input1' -C '$column' -O '$outFile1' -M '$method' -QU '$upper_quartile' -QL '$lower_quartile' -MU '$multiplier_constant'
+    ]]></command>
+
+  <inputs>
+    <param name="input1" type="data" label="Input file" format="tabular" argument= "--infile" help="Input csv data file."/>
+    <param name="column" type='data_column' data_ref="input1"  label="Select the columns " argument="--column_list" multiple="True" use_header_names="true" help="Class Label ex. 0 or 1">
+      <validator type="no_options" message="Please select any one column."/>
+    </param>
+
+    <param name="method" label="Remove outlier/Replace with median"  type='select' argument="--method" help="Remove/replace the outlier">
+          <option value="replace">Replace the outlier with the median values</option>
+          <option value="drop">Drop the rows containing outlier</option>
+    </param>
+
+    <param name="upper_quartile" label="Upper Quartile value"  type='text' value="75" argument="--upper_quartile" help="Select upper quartile for outlier removal"/>
+    <param name="lower_quartile" label="Lower Quartile value"  type='text' value="25" argument="--lower_quartile " help="Select upper quartile for outlier removal"/>
+    <param name="multiplier_constant" label="multiplier for IQR"  type='text' value="1.5" argument="--multiplier_constant" help="Multiplier for Inter-Quartile range"/>
+  </inputs>
+
+  <outputs>
+    <data name='outFile1' format='tabular' label="Out.tsv" from_work_dir="out.tsv"/> 
+  </outputs>
+
+  <tests>
+    <test>
+      <!-- Input dataset -->
+      <param name="input1" value="test.tsv"/>
+      <!-- Select columns to handle outliers -->
+      <param name="column" value="2,3"/>
+      <!-- Method to apply -->
+      <param name="method" value="replace"/>
+      <!-- Quartile and multiplier parameters -->
+      <param name="upper_quartile" value="75"/>
+      <param name="lower_quartile" value="25"/>
+      <param name="multiplier_constant" value="1.5"/>
+      <!-- Expected output comparison -->
+      <output name="outFile1" file="out.tsv" compare="diff"/>
+    </test>
+  </tests>
+
+    <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+This tool handles the outliers from the selected columns of the given dataset. 
+
+-----
+
+**Inputs**
+    HeatMap    
+       * **--infile** Input data frame as a tabular file.
+       * **--column_list**  List of columns to detect outliers  
+       * **--method** Method to select for outlier removal, [drop, replace] 
+       * **--upper_quartile** Upper quartile value (default 75)
+       * **--lower_quartile** "Lower quartile value (default 25)"
+       * **--multiplier_constant** IQR multiplier constant (default 1.5)
+
+**Outputs**
+    * Returns a tabular file with outlier removed/replaced with medians]]></help>
+
+
+<citations>
+  <citation type="bibtex">
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+
+</tool>

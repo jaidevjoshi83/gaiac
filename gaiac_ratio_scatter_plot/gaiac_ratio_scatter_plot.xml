@@ -1,0 +1,181 @@
+<tool id="gaiac_ratio_scatter_plot" name="GAIAC ratio scatter plot " version="0.1.0"  python_template_version="3.10">
+  <description>of numeric data</description>
+
+  <requirements>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+    <requirement type="package" version="3.10.0">matplotlib</requirement>
+    <requirement type="package" version="0.13.2">seaborn</requirement>
+  </requirements>
+
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+    <command detect_errors="exit_code"><![CDATA[
+
+        python '$__tool_directory__/ratio_scatter_plot.py'  -I '$infile' -T '$plottitle' -H '$fig_height' -W '$fig_width' --xlab '$clm_lab_x' --ylab '$clm_lab_y' -O 'out.png'
+
+            #if $Sel_data_x.plotting_option_x == 'default'
+                -px 'simple'
+                -c1 $Sel_data_x.clm1
+            #end if 
+
+            #if $Sel_data_x.plotting_option_x == 'advance'
+                -px 'advance'
+                -c1 $Sel_data_x.clm1
+                -c2 $Sel_data_x.clm2
+            #end if 
+
+            #if $Sel_data_y.plotting_option_y == 'default'
+                -py 'simple'
+                -c3 $Sel_data_y.clm3
+            #end if 
+
+            #if $Sel_data_y.plotting_option_y == 'advance'
+                -py 'advance'
+                -c3 $Sel_data_y.clm3
+                -c4 $Sel_data_y.clm4
+            #end if 
+       
+    ]]></command>
+
+  <inputs> 
+
+    <param name="infile" type="data" format="tabular" label="Input file" />
+    <param name="plottitle" type="text" value="Scatter plot" label="Plot title" />
+    <param name="fig_height" type="text" value="3" label="Figure Height" />
+    <param name="fig_width" type="text" value="5" label="Figure Width" />
+    
+    <param name="clm_lab_y" type="text" value="" size="30" label="Label for y axis"/>
+    <param name="clm_lab_x" type="text" value="" size="30" label="Label for x axis"/>
+
+    <conditional name='Sel_data_x' >
+
+        <param name="plotting_option_x" type="select" label="Variable selection for X axis" argument="" help="Data plotting method">
+          <option value="advance" > Select two columns for ratio</option>
+          <option value="default" selected="true"> Select single column</option>
+        </param>
+
+        <when value="advance">
+
+        <param name="clm1" label="Select column for x axis as numerator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+        </param>
+
+        <param name="clm2" label="Select column for x axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+        </param>
+            
+        </when>
+
+        <when value="default">
+
+        <param name="clm1" label="Select single column for x axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+        </param>
+
+        </when>
+
+    </conditional>
+
+    <conditional name='Sel_data_y' >
+
+        <param name="plotting_option_y" type="select" label="Variable selection for Y axis" argument="" help="Data plotting method">
+          <option value="advance" > Select two columns for ratio</option>
+          <option value="default" selected="true"> Select single column</option>
+        </param>
+
+        <when value="advance">
+
+          <param name="clm3" label="Select column for y axis as numerator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+        </param>
+
+        <param name="clm4" label="Select column for y axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+        </param>
+            
+        </when>
+
+        <when value="default">
+
+          <param name="clm3" label="Select single column for Y axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+          </param>
+
+        </when>
+
+    </conditional>
+    
+  </inputs>
+
+  <outputs>
+    <data name='output1' format='png' label="Output" from_work_dir="out.png" ></data>
+  </outputs>
+  
+  <tests>
+    <test>
+      <param name="infile" value="test.tsv"/>
+      <param name="plottitle" value="Ratio Scatter Plot"/>
+      <param name="fig_height" value="3"/>
+      <param name="fig_width" value="4"/>
+      <param name="clm_lab_y" value="Grimm/OPC N2"/>
+      <param name="clm_lab_x" value="Relative Humidity (%)"/>
+      <param name="Sel_data_x" value="default"/>
+      <param name="clm1" value="17"/>
+      <param name="Sel_data_y" value="advance"/>
+      <param name="clm3" value="1"/>
+      <param name="clm4" value="4"/>
+      <output name="output1" file="out.png" />
+    </test>
+  </tests>
+  
+ <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool generates scatter plot for the selected columns (parameters) from the dataset 
+
+   
+
+-----
+
+**Inputs**
+    Scatter plot    
+      * **--infile** : Input data frame as a tabular .tsv file.
+      * **--plotting_option_for_x** : Plot type for the X-axis (e.g., scatter, line).
+      * **--plotting_option_for_y** : Plot type for the Y-axis (e.g., scatter, line).
+      * **--x_column_1** : Select column name for the primary X-axis data.
+      * **--x_column_2** : Select optional second column name for the X-axis.
+      * **--y_column_1** : Select column name for the primary Y-axis data.
+      * **--y_column_2** : Select optional second column name for the Y-axis.
+      * **--output** : Output file name for the generated figure (default: 'Out.png').
+      * **--title** : Title of the figure (default: 'Time Series plot').
+      * **--height** : Figure height in inches (default: 14).
+      * **--width** : Figure width in inches (default: 12).
+      * **--ylab** : Y-axis label (default: 'Y label').
+      * **--xlab** : X-axis label (default: 'X label (time)').
+    
+-----
+
+**Outputs**
+    * Returns png file with the scatter plot]]></help>
+
+<citations>
+  <citation type="bibtex">
+
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+</tool>

@@ -1,0 +1,74 @@
+<tool id="gaiac_bias" name="GAIAC Bias Calculation" version="0.1.0" python_template_version="3.10">
+	<description>Calculates Bias between the standard instrument and the sensors as per the US EPA recommendations</description>
+
+    <requirements>
+      <requirement type="package" version="2.2.3">pandas</requirement>
+      <requirement type="package" version="1.15.2">scipy</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+      python '$__tool_directory__/bias_calculation.py' -I '$infile' -c1 '$clm1' -c2 '$clm2' -o '$Out'  
+    ]]></command>
+
+    <inputs>
+      <param name="infile" type="data" format="tabular" label="Dataset"/>
+      <param name="clm1" label="Select column containing data from instrument under test (sensors)" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+      </param>
+      <param name="clm2" label="Select columns containing data from the standard or reference instrument" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+      </param>
+    </inputs>
+
+    <outputs>   
+        <data name='Out' file= "out.tsv" format='tabular' label="out.tsv" from_work_dir="out.tsv"/>
+    </outputs>
+ 
+    <tests>
+      <test>
+        <!-- input dataset -->
+        <param name="infile" value="test.tsv"/>
+        <!-- select columns by header name -->
+        <param name="clm1" value="1"/>
+        <param name="clm2" value="4"/>
+        <!-- expected output file -->
+        <output name="Out" file="out.tsv" ftype="tabular"/>
+      </test>
+    </tests>
+
+   <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool calculates bias between the reference instrument and the sensors as per the US EPA criteria
+
+-----
+
+**Inputs**
+    Bias calculation    
+       * **--Infile** Input data frame as a tabular file.
+       * **--c1** the column containing data from the instrument under test (sensors) select the column from the list.
+       * **--c2** the column containing data from the standard or reference instrument select the column from the list.
+
+-----
+
+**Outputs**
+    * Returns bias value between the standard instrument and the sensor data]]></help>
+
+<citations>
+  <citation type="bibtex">
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+</tool>

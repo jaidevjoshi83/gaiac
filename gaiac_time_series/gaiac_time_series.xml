@@ -1,0 +1,133 @@
+<tool id="gaiac_time_series" name="GAIAC time series plot " version="1.0.0">
+  <description>of numeric data</description>
+
+  <requirements>
+    <requirement type="package" version="3.10">Python</requirement>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+    <requirement type="package" version="3.10.1">matplotlib-base</requirement>
+    <requirement type="package" version="1.13.1">seaborn</requirement>
+  </requirements>
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+    <command detect_errors="exit_code"><![CDATA[
+
+        python '$__tool_directory__/time_series.py' --infile '$infile' -C '$clm_list_y' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png' --ylab '$clm_lab_y' --xlab '$clm_lab_x'
+
+            #if $Sel_legend.Plot == 'advance'
+                --custom_legend_name  '$Sel_legend.label'
+            #end if 
+    
+    ]]></command>
+
+  <inputs> 
+
+    <param name="infile" type="data" format="tabular" label="Input file" />
+    <param name="plottitile" type="text" value="Time series plot" label="Plot title" />
+    <param name="fig_height" type="text" value="3" label="Figure Height" />
+    <param name="fig_width" type="text" value="5" label="Figure Width" />
+    
+    <param name="clm_lab_y" type="text" value="" size="30" label="Label for y axis"/>
+    <param name="clm_lab_x" type="text" value="" size="30" label="Label for x axis"/>
+    <param name="clm_list_y" label="Select columns for y axis" type="data_column" data_ref="infile" numerical="True" multiple="true" use_header_names="true">
+        <validator type="no_options" message="Please select atleast one column."/>
+    </param>
+   
+
+
+    <conditional name='Sel_legend' >
+
+        <param name="Plot" type="select" label="label for legend" argument="" help="Data plotting method">
+          <option value="advance" > Advance option for custom labels for legennd</option>
+          <option value="default" selected="true"> Default labels</option>
+        </param>
+
+        <when value="advance">
+            <param name="label" type="text" value="" label="label for legend as text" help="A list that gives custom labels for legends as comma seperated text"/>
+        </when>
+
+        <when value="default">
+
+        </when>
+
+    </conditional>
+  </inputs>
+
+  <outputs>
+
+      <data name='output' format='png' label="Output" from_work_dir="out.png" >
+
+      </data>
+
+  </outputs>
+  
+  <tests>
+
+   <test>
+    <param name="infile" value="test.tsv"/>
+    <param name="plottitile" value="Time series plot"/>
+    <param name="fig_height" value="3"/>
+    <param name="fig_width" value="5"/>
+    <param name="clm_lab_y" value="PM Concentration"/>
+    <param name="clm_lab_x" value=""/>
+    <param name="clm_list_y" value="1,4,7,11"/>
+    <param name="Plot" value="advance"/>
+    <param name="label" value="GRIMM,PM10_OPC_N2,PM10_OPC_N2,PM10_NOVA"/>
+    <output name="output" file="out.png" ftype="png"/>
+  </test>
+
+  </tests>
+  
+<help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool generates violin plot for the selected columns (parameters) from the dataset 
+
+   
+
+-----
+
+**Inputs**
+    Time series plot    
+       * **--infile"** Input data file in TSV format
+       * **--column_list_y** Comma-separated list of column names for Y-axis data
+       * **--custom_legend_name** Custom legend names as a comma-separated list (optional)
+       * **--output** Filename for the output plot image (default: 'Out.png')
+       * **--title** Title of the plot (default: 'Time Series plot')
+       * **--height** Height of the figure in inches (default: 14)
+       * **--width** Width of the figure in inches (default: 12)
+       * **--ylab** Label for the Y-axis (default: 'Y label')
+       * **--xlab** Label for the X-axis (default: 'X label(time)')
+       
+-----
+
+**Outputs**
+    * Returns png file with the time series plot]]></help>
+
+<citations>
+  <citation type="bibtex">
+
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+</tool>
+
+
+
+
+
+
+

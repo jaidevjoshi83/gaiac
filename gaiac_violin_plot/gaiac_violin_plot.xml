@@ -1,0 +1,118 @@
+<tool id="gaiac_violin_plot" name="GAIAC violin plot" version="1.0.0">
+  <description>for visualizing the distribution of numeric data using violin plots</description>
+
+  <requirements>
+    <requirement type="package" version="3.10">Python</requirement>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+    <requirement type="package" version="3.10.1">matplotlib-base</requirement>
+    <requirement type="package" version="1.13.2">seaborn</requirement>
+  </requirements>
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+    <command detect_errors="exit_code"><![CDATA[
+
+      python '$__tool_directory__/violin_plot.py' --infile '$infile' -C '$clm_list_y' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png' --ylab '$clm_lab_y' --xlab '$clm_lab_x'
+
+        #if $Sel_x_tick_labels.Plot == 'advance'
+            --custom_xtick_name  '$Sel_x_tick_labels.label'
+        #end if 
+     
+    ]]></command>
+
+  <inputs> 
+    <param name="infile" type="data" format="tabular" label="Input file" />
+    <param name="plottitile" type="text" value="Violin Plot" label="Plot title" />
+    <param name="fig_height" type="text" value="3" label="Figure Height" />
+    <param name="fig_width" type="text" value="5" label="Figure Width" />
+    
+    <param name="clm_lab_y" type="text" value="" size="30" label="Label for y axis"/>
+    <param name="clm_lab_x" type="text" value="" size="30" label="Label for x axis"/>
+    <param name="clm_list_y" label="Select columns for y axis" type="data_column" data_ref="infile" numerical="True" multiple="true" use_header_names="true">
+        <validator type="no_options" message="Please select atleast one column."/>
+    </param>
+   
+    <conditional name='Sel_x_tick_labels' >
+      <param name="Plot" type="select" label="label for legend" argument="" help="Data plotting method">
+        <option value="advance" > Advance option for custom labels for X tick labels</option>
+        <option value="default" selected="true"> Default labels</option>
+      </param>
+
+      <when value="advance">
+          <param name="label" type="text" value="" label="label for X tick as text" help="A list that gives custom labels for legends as comma seperated text"/>
+      </when>
+
+      <when value="default">
+      </when>
+    </conditional>
+  </inputs>
+
+  <outputs>
+    <data name='output1' format='png' label="Output" from_work_dir="out.png"></data>
+  </outputs>
+  
+  <tests>
+    <test>
+      <!-- input file -->
+      <param name="infile" value="test.tsv"/>
+      <!-- figure parameters -->
+      <param name="plottitile" value="Violin Plot"/>
+      <param name="fig_height" value="4"/>
+      <param name="fig_width" value="6"/>
+      <!-- axis labels -->
+      <param name="clm_lab_y" value="Y-Axis Label"/>
+      <param name="clm_lab_x" value="X-Axis Label"/>
+      <!-- select data column(s) -->
+      <param name="clm_list_y" value="1"/>
+      <!-- Use default for custom labels -->
+      <param name="Sel_x_tick_labels|Plot" value="default"/>
+      <!-- output image -->
+      <output name="output1" file="out.png"/>
+    </test>
+  </tests>
+  
+ <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool generates violin plot for the selected columns (parameters) from the dataset 
+
+   
+-----
+
+**Inputs**
+    Violin plot    
+       * **--infile** Input data file in TSV (tab-separated) format
+       * **--column_list_y** Comma-separated list of column names to plot on the Y-axis.
+       * **--custom_xtick_name** Comma-separated list of custom legend names for the plot legend. 
+       * **--output** Filename for the output plot image (e.g. 'plot.png').
+       * **--title**  Title of the time series plot.  
+       * **--height**  Height of the figure in inches (default: 14).
+       * **--width** Width of the figure in inches (default: 12). 
+       * **--ylab** Label for the Y-axis (default: 'Y label')
+       * **--xlab** Label for the Y-axis (default: 'x label')
+    
+-----
+
+**Outputs**
+    * Returns png file with the violin plot]]></help>
+
+<citations>
+  <citation type="bibtex">
+
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+
+</citations>
+</tool>

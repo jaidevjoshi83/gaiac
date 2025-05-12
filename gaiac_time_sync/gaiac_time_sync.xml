@@ -1,0 +1,73 @@
+<tool id="gaiac_time_synchronization" name="GAIAC data synchronization" version="0.1.0" python_template_version="3.8">
+
+	<description>Returns files with time synchronized data</description>
+
+    <requirements>
+      <requirement type="package" version="3.10">python</requirement>
+       <requirement type="package" version="2.2.3">pandas</requirement>
+       <requirement type="package" version="2.2.5">numpy</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+ 
+        python3 '$__tool_directory__/time_sync.py' -f '$input1' -t '$column' -o $out
+
+    ]]></command>
+
+    <inputs>
+        <param type="data" name="input1" label="Input files" format="tabular" multiple="true" help="Input tabular data files"/>
+        <param type="text" name="column" label="Date and Time Column"  help="Date and Time column name"/>
+    </inputs>
+
+    <outputs>
+       <data name='out' file= "out.tsv" format='tabular' label="out.tsv" from_work_dir="out.tsv"/>
+    </outputs>
+
+    <tests>
+    <test>
+      <!-- Input files for time synchronization -->
+      <param name="input1" value="input1.tsv,input2.tsv,input3.tsv"/>
+      <param name="column" value="date_time"/>
+      
+      <!-- Output file to check synchronization -->
+      <output name="out.tsv" file="out.tsv" />
+    </test>
+  </tests>
+
+ <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool synchronizes the data based on time from the different files.
+
+   
+-----
+
+**Inputs**
+    Time sychronization tool    
+       * **--Input files** tabular data files (example input1.tsv, input2.tsv.... inputn.tsv ).
+       
+    
+-----
+
+**Outputs**
+    * Returns time synchronized files.]]></help>
+
+
+<citations>
+  <citation type="bibtex">
+
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   } 
+
+}</citation>
+</citations>
+
+</tool>

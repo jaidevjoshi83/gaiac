@@ -1,0 +1,81 @@
+<tool id="gaiac_windrose_plot" name="GAIAC wind rose plot" version="1.0.0">
+  <description> between wind speed and wind direction</description>
+    <requirements>
+    <requirement type="package" version="3.10">Python</requirement>
+    <requirement type="package" version="2.2.5">numpy</requirement>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+    <requirement type="package" version="3.10.1">matplotlib-base</requirement>
+    <requirement type="package" version="1.9.2">windrose</requirement>
+  </requirements>
+  
+  <stdio>
+    <exit_code range="1" level="fatal" />
+  </stdio>
+    <command detect_errors="exit_code"><![CDATA[
+
+      python '$__tool_directory__/windrose_plot.py'  -I '$infile'  -d '$clm_dir' -w '$clm_ws' -O 'out.png'
+
+    ]]></command>
+
+  <inputs>
+    <param name="infile" type="data" format="tabular" label="Dataset"/>
+    
+    <param name="clm_dir" label="Select column containing wind direction " type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+    </param>
+
+    <param name="clm_ws" label="Select columns containing wind speed " type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+        <validator type="no_options" message="Please select any one column."/>
+    </param>
+       
+  </inputs>
+
+  <outputs>
+    <data name="outfile" format="png" label="Output" from_work_dir="out.png" />
+  </outputs>
+
+    <tests>
+      <test>
+        <!-- Input dataset -->
+        <param name="infile" value="test.tsv"/>
+
+        <!-- Selecting columns -->
+        <param name="clm_dir" value="18"/>
+        <param name="clm_ws" value="1"/>
+
+        <!-- Expected output image file -->
+        <output name="outfile" file="out.png" />
+      </test>
+    </tests>
+ <help><![CDATA[
+.. class:: infomark
+
+**What it does**
+
+This tool generates a wind rose plot. 
+
+-----
+**Inputs**
+    Windrose plot    
+       * **--infile** Input data frame as a tabular file.
+       * **--column_list_dir** Choose the wind direction column in the dataset from the list
+       * **--column_list_ws** Choose the wind speed column in the dataset from the list  
+-----
+
+**Outputs**
+    * Returns png file with the windrose plot]]></help>
+
+<citations>
+  <citation type="bibtex">
+    @article{dubey2022,
+   title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+   author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+   journal={GitHub repository},
+   url = {https://github.com/ravishdubey/OPCN3API},
+   year={2022},
+   publisher={GitHub}
+   }
+
+  </citation>
+</citations>
+</tool>
