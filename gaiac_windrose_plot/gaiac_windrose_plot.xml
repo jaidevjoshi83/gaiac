@@ -55,11 +55,14 @@
 This tool generates a wind rose plot. 
 
 -----
+
 **Inputs**
     Windrose plot    
        * **--infile** Input data frame as a tabular file.
        * **--column_list_dir** Choose the wind direction column in the dataset from the list
        * **--column_list_ws** Choose the wind speed column in the dataset from the list  
+
+       
 -----
 
 **Outputs**

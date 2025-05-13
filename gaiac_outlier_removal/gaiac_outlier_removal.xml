@@ -16,19 +16,19 @@
     ]]></command>
 
   <inputs>
-    <param name="input1" type="data" label="Input file" format="tabular" argument= "--infile" help="Input csv data file."/>
+    <param name="input1" type="data" label="Input file" format="tabular"  help="Input csv data file."/>
     <param name="column" type='data_column' data_ref="input1"  label="Select the columns " argument="--column_list" multiple="True" use_header_names="true" help="Class Label ex. 0 or 1">
       <validator type="no_options" message="Please select any one column."/>
     </param>
 
-    <param name="method" label="Remove outlier/Replace with median"  type='select' argument="--method" help="Remove/replace the outlier">
+    <param name="method" label="Remove outlier/Replace with median"  type='select'  help="Remove/replace the outlier">
           <option value="replace">Replace the outlier with the median values</option>
           <option value="drop">Drop the rows containing outlier</option>
     </param>
 
-    <param name="upper_quartile" label="Upper Quartile value"  type='text' value="75" argument="--upper_quartile" help="Select upper quartile for outlier removal"/>
-    <param name="lower_quartile" label="Lower Quartile value"  type='text' value="25" argument="--lower_quartile " help="Select upper quartile for outlier removal"/>
-    <param name="multiplier_constant" label="multiplier for IQR"  type='text' value="1.5" argument="--multiplier_constant" help="Multiplier for Inter-Quartile range"/>
+    <param name="upper_quartile" label="Upper Quartile value"  type='text' value="75"  help="Select upper quartile for outlier removal"/>
+    <param name="lower_quartile" label="Lower Quartile value"  type='text' value="25"  help="Select upper quartile for outlier removal"/>
+    <param name="multiplier_constant" label="multiplier for IQR"  type='text' value="1.5" help="Multiplier for Inter-Quartile range"/>
   </inputs>
 
   <outputs>

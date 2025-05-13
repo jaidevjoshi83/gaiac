@@ -1,4 +1,4 @@
-<tool id="gaiac_heatmap" name="GAIAC heatmap " version="0.1.0" python_template_version="3.10" >
+<tool id="gaiac_heatmap" name="GAIAC heatmap" version="0.1.0" python_template_version="3.10" >
   <description>Generates a heatmap of Pearson correlation coefficients between selected numerical parameters</description>
 
   <requirements>
@@ -53,8 +53,8 @@
       <param name="fig_height" value="2" />
       <param name="fig_width" value="2" />
       <param name="clm_list" value="1,4,7,11" />
-      <param name="Plot" value="advance" />
-      <param name="label" value="GRIMM, OPC N2 1, OPC N2, PM NOVA" />
+      <param name="SelPlotting|Plot" value="advance"/>
+      <param name="SelPlotting|label" value="GRIMM, OPC N2 1, OPC N2, PM NOVA" />
       <output name="output1" file="out.png" ftype="png"  />
     </test>
   </tests>
@@ -76,6 +76,7 @@ This tool generates heatmap of Pearson correlation values between the selected p
        * **--title** Figure title 
        * **--height** Figure height
        * **--width** Figure width
+
 -----
 
 **Outputs**

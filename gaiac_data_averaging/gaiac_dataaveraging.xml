@@ -34,7 +34,7 @@
   <tests>
     <test>
       <param name="input1" value="test.tsv"/>
-      <output name="Column" file="1"/>
+      <param name="Column" value="1"/>
       <output name="output" file="out.tsv" ftype="tabular"/>
     </test>
   </tests>

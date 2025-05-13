@@ -39,27 +39,23 @@
   <outputs>
     <data name="outfile" format="png" label="Output" from_work_dir="out.png" />
   </outputs>
-    <!--
-  <requirements>
-      <requirement type="set_environment">R_SCRIPT_PATH</requirement>
-      <requirement type="package" version="2.15.0">R</requirement>
-  </requirements>
--->
-    <tests>
 
-      <test>
-        <param name="infile" value="test.tsv"/>
-        <param name="plottitle" value=" Linear regression plot"/>
-        <param name="xlab" value="Grimm"/>
-        <param name="ylab" value="OPC N2"/>
-        <param name="clm_x" value="4"/>
-        <param name="clm_y" value="1"/>
-        <param name="fig_height" value="6"/>
-        <param name="fig_aspect" value="1.2"/>
-        <output name="outfile" file="out.png"/>
-    </test>
+  <tests>
 
-    </tests>
+    <test>
+      <param name="infile" value="test.tsv"/>
+      <param name="plottitle" value=" Linear regression plot"/>
+      <param name="xlab" value="Grimm"/>
+      <param name="ylab" value="OPC N2"/>
+      <param name="clm_x" value="4"/>
+      <param name="clm_y" value="1"/>
+      <param name="fig_height" value="6"/>
+      <param name="fig_aspect" value="1.2"/>
+      <output name="outfile" file="out.png"/>
+  </test>
+
+  </tests>
+
  <help><![CDATA[
 .. class:: infomark
 
@@ -67,7 +63,7 @@
 
 This tool generates linear regression plot for the selected columns (parameters) from the dataset 
 
-   
+  
 
 -----
 
@@ -83,10 +79,11 @@ This tool generates linear regression plot for the selected columns (parameters)
       * **--aspect** : Aspect ratio or width of the figure in inches (default: 12).
       * **--output** : Output file name for the saved figure (default: 'Out.png').
 
-    -----
+-----
 
 **Outputs**
     * Returns png file with the linear regression plot]]></help>
+
 
 <citations>
   <citation type="bibtex">

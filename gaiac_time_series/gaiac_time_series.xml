@@ -1,4 +1,4 @@
-<tool id="gaiac_time_series" name="GAIAC time series plot " version="1.0.0">
+<tool id="gaiac_time_series" name="GAIAC time series plot" version="1.0.0">
   <description>of numeric data</description>
 
   <requirements>
@@ -72,8 +72,8 @@
     <param name="clm_lab_y" value="PM Concentration"/>
     <param name="clm_lab_x" value=""/>
     <param name="clm_list_y" value="1,4,7,11"/>
-    <param name="Plot" value="advance"/>
-    <param name="label" value="GRIMM,PM10_OPC_N2,PM10_OPC_N2,PM10_NOVA"/>
+    <param name="Sel_legend|Plot" value="advance"/>
+    <param name="Sel_legend|label" value="GRIMM,PM10_OPC_N2,PM10_OPC_N2,PM10_NOVA"/>
     <output name="output" file="out.png" ftype="png"/>
   </test>
 

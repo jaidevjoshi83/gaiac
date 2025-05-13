@@ -1,4 +1,4 @@
-<tool id="gaiac_ratio_scatter_plot" name="GAIAC ratio scatter plot " version="0.1.0"  python_template_version="3.10">
+<tool id="gaiac_ratio_scatter_plot" name="GAIAC ratio scatter plot" version="0.1.0"  python_template_version="3.10">
   <description>of numeric data</description>
 
   <requirements>
@@ -57,23 +57,19 @@
         </param>
 
         <when value="advance">
+          <param name="clm1" label="Select column for x axis as numerator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+              <validator type="no_options" message="Please select atleast one column."/>
+          </param>
 
-        <param name="clm1" label="Select column for x axis as numerator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
-            <validator type="no_options" message="Please select atleast one column."/>
-        </param>
-
-        <param name="clm2" label="Select column for x axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
-            <validator type="no_options" message="Please select atleast one column."/>
-        </param>
-            
+          <param name="clm2" label="Select column for x axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+              <validator type="no_options" message="Please select atleast one column."/>
+          </param>
         </when>
 
         <when value="default">
-
-        <param name="clm1" label="Select single column for x axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
-            <validator type="no_options" message="Please select atleast one column."/>
-        </param>
-
+          <param name="clm1" label="Select single column for x axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+              <validator type="no_options" message="Please select atleast one column."/>
+          </param>
         </when>
 
     </conditional>
@@ -86,23 +82,19 @@
         </param>
 
         <when value="advance">
-
           <param name="clm3" label="Select column for y axis as numerator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
-            <validator type="no_options" message="Please select atleast one column."/>
-        </param>
-
-        <param name="clm4" label="Select column for y axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
-            <validator type="no_options" message="Please select atleast one column."/>
-        </param>
-            
-        </when>
-
-        <when value="default">
-
-          <param name="clm3" label="Select single column for Y axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
             <validator type="no_options" message="Please select atleast one column."/>
           </param>
 
+          <param name="clm4" label="Select column for y axis as denominator" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+          </param>
+        </when>
+
+        <when value="default">
+          <param name="clm3" label="Select single column for Y axis" type="data_column" data_ref="infile" numerical="True" multiple="false" use_header_names="true">
+            <validator type="no_options" message="Please select atleast one column."/>
+          </param>
         </when>
 
     </conditional>
@@ -121,12 +113,12 @@
       <param name="fig_width" value="4"/>
       <param name="clm_lab_y" value="Grimm/OPC N2"/>
       <param name="clm_lab_x" value="Relative Humidity (%)"/>
-      <param name="Sel_data_x" value="default"/>
-      <param name="clm1" value="17"/>
-      <param name="Sel_data_y" value="advance"/>
-      <param name="clm3" value="1"/>
-      <param name="clm4" value="4"/>
-      <output name="output1" file="out.png" />
+      <param name="Sel_data_x|plotting_option_x" value="default"/> 
+      <param name="Sel_data_x|clm1" value="17"/> 
+      <param name="Sel_data_y|plotting_option_y" value="advance"/> 
+      <param name="Sel_data_y|clm3" value="1"/>
+      <param name="Sel_data_y|clm4" value="4"/>
+      <output name="output1" file="out.png" /> 
     </test>
   </tests>
   

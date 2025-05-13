@@ -1,0 +1,12 @@
+name: gaiac
+owner: jay
+description: "Galaxy Air Investigation and Analysis for Citizens toolset (GAIAC)"
+homepage_url: https://github.com/jaidevjoshi83/gaiac
+remote_repository_url: https://github.com/jaidevjoshi83/gaiac
+type: unrestricted
+auto_tool_repositories:
+  name_template: "{{ tool_id }}"
+  description_template: "Wrapper for the gaiac tool suite: {{ tool_name }}"
+suite:
+  name: "suite_daiac"
+  description: "Galaxy Air Investigation and Analysis for Citizens toolset (GAIAC)"
