@@ -8,9 +8,9 @@
     ]]></command>
 
     <inputs>
-        <param name="input1" type="data" format="txt" label="List of Hostnames"/>
+        <param name="input" type="data" format="txt" label="List of Hostnames"/>
         <param name="ip_target" type="select" label="Select server" refresh_on_change="true">
-            <options from_dataset="input1">
+            <options from_dataset="input">
                 <column name="name" index="0"/>
                 <column name="value" index="0"/>
                 <filter type="unique_value" name="unique" column="0"/>
@@ -32,6 +32,10 @@
 
     <tests>
         <test>
+            <param name="input" value="host.txt" />
+            <param name="ip_target" value="http://192.168.1.202:8080" />
+            <param name="assets" value="http://192.168.1.202:8080/download/input1.tsv" />
+            <param name="force" value="false" />
         </test>
     </tests>
     
