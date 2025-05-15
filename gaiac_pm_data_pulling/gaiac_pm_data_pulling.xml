@@ -1,4 +1,4 @@
-<tool id="gaiac_pm_data_pulling" name="PM data pulling" version="@VERSION@+galaxy0" profile="20.05">
+<tool id="gaiac_pm_data_pulling" name="PM data pulling" version="0.1.0" profile="20.05">
     <description>from remote resource</description>
  
     <code file="gaiac_pm_data_pulling.py" />
