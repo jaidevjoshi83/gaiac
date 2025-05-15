@@ -1,0 +1,66 @@
+<tool id="gaiac_pm_data_pulling" name="PM data pulling" version="@VERSION@+galaxy0" profile="20.05">
+    <description>from remote resource</description>
+ 
+    <code file="gaiac_pm_data_pulling.py" />
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '${__tool_directory__}/datapulling.py'  '$assets' 
+    ]]></command>
+
+    <inputs>
+        <param name="input1" type="data" format="txt" label="List of Hostnames"/>
+        <param name="ip_target" type="select" label="Select server" refresh_on_change="true">
+            <options from_dataset="input1">
+                <column name="name" index="0"/>
+                <column name="value" index="0"/>
+                <filter type="unique_value" name="unique" column="0"/>
+            </options>
+        </param>
+
+        <param argument="--assets" name="assets" type="drill_down" display="checkbox" hierarchy="exact" multiple="True" optional="False" label="Select desired asset" dynamic_options="simulate_dynamic_options(ip_target)" help="string of asset-registry-paths">
+            <validator type="regex" message="The file must have a .tsv extension.">^.*\.tsv$</validator>
+        </param>
+
+        <param argument="--force" name="force" type="boolean" truevalue="--force" falsevalue="" checked="False" label="Force (re-)download" />
+    </inputs>
+
+    <outputs>
+        <collection name="output" type="list" label="${tool.name} on $on_string - (PDB)">
+            <discover_datasets pattern="__name_and_ext__" format='tabular'  />
+        </collection>
+    </outputs>
+
+    <tests>
+        <test>
+        </test>
+    </tests>
+    
+    <help><![CDATA[
+  
+        
+    **What it does**
+    
+    -----
+    
+    **Inputs**  
+        * **List of Hostnames** : Provide a text file listing one host (e.g. http://127.0.0.1:8080) per line, 
+    
+    -----
+    
+    **Outputs**
+        * Returns a collection of particulate matter data as tabular files. ]]></help>
+    
+    <citations>
+        <citation type="bibtex">
+        @article{dubey2022,
+        title={AirPiuG-Galaxy software platform based open-source GUI tools for data collection and analysis from low cost air pollution sensors},
+        author={Dubey, R and Joshi, J and Patra, A and Blankenberg, D},
+        journal={GitHub repository},
+        url = {https://github.com/ravishdubey/OPCN3API},
+        year={2022},
+        publisher={GitHub}
+        }
+    
+        </citation>    
+    </citations>
+</tool>
