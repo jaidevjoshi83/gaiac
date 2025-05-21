@@ -13,7 +13,7 @@
   </stdio>
     <command detect_errors="exit_code"><![CDATA[
 
-        python '$__tool_directory__/time_series.py' --infile '$infile' -C '$clm_list_y' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png' --ylab '$clm_lab_y' --xlab '$clm_lab_x'
+        python '$__tool_directory__/gaiac_time_series.py' --infile '$infile' -C '$clm_list_y' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png' --ylab '$clm_lab_y' --xlab '$clm_lab_x'
 
             #if $Sel_legend.Plot == 'advance'
                 --custom_legend_name  '$Sel_legend.label'

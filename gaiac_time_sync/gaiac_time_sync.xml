@@ -10,12 +10,12 @@
 
     <command detect_errors="exit_code"><![CDATA[
  
-        python3 '$__tool_directory__/time_sync.py' -f '$input1' -t '$column' -o $out
+        python '$__tool_directory__/gaiac_time_sync.py' -f '$input' -t '$column' -o $out
 
     ]]></command>
 
     <inputs>
-        <param type="data" name="input1" label="Input files" format="tabular" multiple="true" help="Input tabular data files"/>
+        <param type="data" name="input" label="Input files" format="tabular" multiple="true" help="Input tabular data files"/>
         <param type="text" name="column" label="Date and Time Column"  help="Date and Time column name"/>
     </inputs>
 
@@ -26,7 +26,7 @@
     <tests>
     <test>
       <!-- Input files for time synchronization -->
-      <param name="input1" value="input1.tsv,input2.tsv,input3.tsv"/>
+      <param name="input" value="input1.tsv,input2.tsv,input3.tsv"/>
       <param name="column" value="date_time"/>
       
       <!-- Output file to check synchronization -->

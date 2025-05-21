@@ -13,7 +13,7 @@
   </stdio>
     <command detect_errors="exit_code"><![CDATA[
 
-        python '$__tool_directory__/ratio_scatter_plot.py'  -I '$infile' -T '$plottitle' -H '$fig_height' -W '$fig_width' --xlab '$clm_lab_x' --ylab '$clm_lab_y' -O 'out.png'
+        python '$__tool_directory__/gaiac_ratio_scatter_plot.py'  -I '$infile' -T '$plottitle' -H '$fig_height' -W '$fig_width' --xlab '$clm_lab_x' --ylab '$clm_lab_y' -O 'out.png'
 
             #if $Sel_data_x.plotting_option_x == 'default'
                 -px 'simple'

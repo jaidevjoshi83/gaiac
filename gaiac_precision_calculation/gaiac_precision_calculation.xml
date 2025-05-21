@@ -9,7 +9,7 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/precision_calculation.py' -I '$infile' --column_1 '$clm1' --column_2 '$clm2' -o '$Out'  
+        python '$__tool_directory__/gaiac_precision_calculation.py' -I '$infile' --column_1 '$clm1' --column_2 '$clm2' -o '$Out'  
     ]]></command>
 
     <inputs>

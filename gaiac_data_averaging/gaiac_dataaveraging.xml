@@ -13,13 +13,12 @@
   </stdio>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/dataaveraging.py' -I '$input1' -C '$Column' -O '$output' -T '$TimeInt'
+        python '$__tool_directory__/gaiac_dataaveraging.py' -I '$input' -C '$Column' -O '$output' -T '$TimeInt'
     ]]></command>
 
   <inputs>
-    <param name="input1" type="data" label="Input file" format="tabular" argument= "--InFile" help="Input csv data file."/>
-    <param name="Column" type='data_column' data_ref="input1"  label="Time Stamp column" argument="--dt_column" multiple="False" use_header_names="true" help="Class Label ex. 0 or 1">
-
+    <param name="input" type="data" label="Input file" format="tabular" argument= "--InFile" help="Input csv data file."/>
+    <param name="Column" type='data_column' data_ref="input"  label="Time Stamp column" argument="--dt_column" multiple="False" use_header_names="true" help="Class Label ex. 0 or 1">
       <validator type="no_options" message="Please select any one column."/>
     </param>
 
@@ -33,7 +32,7 @@
 
   <tests>
     <test>
-      <param name="input1" value="test.tsv"/>
+      <param name="input" value="test.tsv"/>
       <param name="Column" value="1"/>
       <output name="output" file="out.tsv" ftype="tabular"/>
     </test>

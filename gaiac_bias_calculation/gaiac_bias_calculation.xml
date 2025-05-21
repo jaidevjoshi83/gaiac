@@ -7,7 +7,7 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-      python '$__tool_directory__/bias_calculation.py' -I '$infile' -c1 '$clm1' -c2 '$clm2' -o '$Out'  
+      python '$__tool_directory__/gaiac_bias_calculation.py' -I '$infile' -c1 '$clm1' -c2 '$clm2' -o '$Out'  
     ]]></command>
 
     <inputs>

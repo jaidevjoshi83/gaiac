@@ -12,7 +12,7 @@
   </stdio>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/outlier_removal.py' -I '$input1' -C '$column' -O '$outFile1' -M '$method' -QU '$upper_quartile' -QL '$lower_quartile' -MU '$multiplier_constant'
+        python '$__tool_directory__/gaiac_outlier_removal.py' -I '$input1' -C '$column' -O '$outFile1' -M '$method' -QU '$upper_quartile' -QL '$lower_quartile' -MU '$multiplier_constant'
     ]]></command>
 
   <inputs>

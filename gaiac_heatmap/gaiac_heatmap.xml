@@ -11,7 +11,7 @@
     <exit_code range="1" level="fatal" />
   </stdio>
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/heatmap.py' --infile '$infile' --column_list '$clm_list' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png'
+        python '$__tool_directory__/gaiac_heatmap.py' --infile '$infile' --column_list '$clm_list' -H  '$fig_height' -W '$fig_width' -T '$plottitile' -O 'out.png'
 
             #if $SelPlotting.Plot == 'advance'
                 --custom_column_name  '$SelPlotting.label'

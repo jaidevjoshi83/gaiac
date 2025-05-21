@@ -1,10 +1,10 @@
-<tool id="gaiac_pm_data_pulling" name="PM data pulling" version="0.1.0" profile="20.05">
+<tool id="gaiac_pm_data_pulling" name="GAIAC PM data pulling" version="0.1.0" profile="20.05">
     <description>from remote resource</description>
  
     <code file="gaiac_pm_data_pulling.py" />
 
     <command detect_errors="exit_code"><![CDATA[
-        python '${__tool_directory__}/datapulling.py'  '$assets' 
+        python '${__tool_directory__}/gaiac_pm_data_pulling.py'  '$assets' 
     ]]></command>
 
     <inputs>

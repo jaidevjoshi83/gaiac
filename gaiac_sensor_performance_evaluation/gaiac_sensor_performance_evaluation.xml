@@ -10,7 +10,7 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/table.py' -I '$infile' --column_1 '$clm2' --column_2 '$clm1' --html_out_dir '$output2.extra_files_path'  --html_file_name '$output2'  
+        python '$__tool_directory__/gaiac_sensor_performance_evaluation.py' -I '$infile' --column_1 '$clm2' --column_2 '$clm1' --html_out_dir '$output2.extra_files_path'  --html_file_name '$output2'  
     ]]></command>
 
     <inputs>

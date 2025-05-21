@@ -11,7 +11,7 @@
   </stdio>
     <command detect_errors="exit_code"><![CDATA[
 
-        python '$__tool_directory__/regression_plot.py'  -I '$infile' -X '$xlab' -Y '$ylab' -Cy '$clm_y' -Cx '$clm_x' -T '$plottitle' -H '$fig_height' -A '$fig_aspect' -O 'out.png'
+        python '$__tool_directory__/gaiac_regression_plot.py'  -I '$infile' -X '$xlab' -Y '$ylab' -Cy '$clm_y' -Cx '$clm_x' -T '$plottitle' -H '$fig_height' -A '$fig_aspect' -O 'out.png'
 
     ]]></command>
 

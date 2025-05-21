@@ -13,7 +13,7 @@
   </stdio>
     <command detect_errors="exit_code"><![CDATA[
 
-      python '$__tool_directory__/windrose_plot.py'  -I '$infile'  -d '$clm_dir' -w '$clm_ws' -O 'out.png'
+      python '$__tool_directory__/gaiac_windrose_plot.py'  -I '$infile'  -d '$clm_dir' -w '$clm_ws' -O 'out.png'
 
     ]]></command>
 
