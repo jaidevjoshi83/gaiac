@@ -8,5 +8,5 @@ auto_tool_repositories:
   name_template: "{{ tool_id }}"
   description_template: "Wrapper for the gaiac tool suite: {{ tool_name }}"
 suite:
-  name: "suite_daiac"
+  name: "suite_gaiac"
   description: "Galaxy Air Investigation and Analysis for Citizens toolset (GAIAC)"
