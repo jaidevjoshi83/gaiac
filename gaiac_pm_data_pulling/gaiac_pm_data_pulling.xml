@@ -4,7 +4,7 @@
     <code file="gaiac_pm_data_pulling.py" />
 
     <command detect_errors="exit_code"><![CDATA[
-        python '${__tool_directory__}/gaiac_pm_data_pulling.py'  '$assets' 
+        python '${__tool_directory__}/gaiac_data_download.py'  '$assets' 
     ]]></command>
 
     <inputs>
