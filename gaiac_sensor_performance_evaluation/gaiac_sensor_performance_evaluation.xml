@@ -10,7 +10,13 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/gaiac_sensor_performance_evaluation.py' -I '$infile' --column_1 '$clm2' --column_2 '$clm1' --html_out_dir '$output2.extra_files_path'  --html_file_name '$output2'  
+
+        python '$__tool_directory__/gaiac_sensor_performance_evaluation.py' -I '$infile' --column_1 '$clm2' --column_2 '$clm1' --html_out_dir '$html_output.extra_files_path'  --html_file_name '$html_output'  --tsv_file_name '$tabular_output' 
+
+        && 
+
+        ls -a
+    
     ]]></command>
 
     <inputs>
@@ -27,20 +33,19 @@
     </inputs>
 
     <outputs>   
-        <data name='output2' format='html' label="${tool.name} on $on_string (html)" />
+        <data name='html_output' format='html' label="${tool.name} on $on_string (html)" />
+        <data name='tabular_output' format='tabular' label="${tool.name} on $on_string (tabular)" from_work_dir="out.tsv" />
     </outputs>
  
     <tests>
         <test>
             <!-- input data file -->
             <param name="infile" value="test.tsv"/>
-
             <!-- assume clm1 is the 'Reference' column, clm2 is 'SensorA' and 'SensorB' -->
             <param name="clm1" value="1"/>
             <param name="clm2" value="1,2"/>
-
             <!-- expected output html file -->
-            <output name="output2" file="testout.html" compare="contains"/>
+            <output name="html_output" file="testout.html" compare="contains"/>
         </test>
     </tests>
 

@@ -16,14 +16,16 @@ import statsmodels.formula.api as smf
 import statsmodels.api as sm
 from sklearn.metrics import mean_squared_error
 import argparse
+# python 'gaiac_sensor_performance_evaluation.py' -I 'dataset_6.dat' --column_1 '4,7,11' --column_2 '1' --html_out_dir 'out_dir'  --html_file_name 'out.html'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-I", "--infile", required=True, default=None, help="Path to the input data file.")
 parser.add_argument("-c1", "--column_1", required=True, default=None, help="Name of the first column to use.")
 parser.add_argument("-c2", "--column_2", required=True, default=None, help="Name of the second column to use.")
 parser.add_argument("--html_out_dir", required=False, default=os.path.join(os.getcwd(), 'report_dir'), help="Directory to save the HTML output report (default: './report_dir').")
-parser.add_argument("--html_file_name", required=False, default="jai.html", help="Name of the HTML output file (default: 'jai.html').")
+parser.add_argument("--html_file_name", required=False, default="out.html", help="Name of the HTML output file (default: 'out.html').")
 parser.add_argument("--workdir_path", required=False, default=os.getcwd(), help="Working directory path (default: current directory).")
+parser.add_argument("--tsv_file_name", required=False, default="out.tsv", help="Name of the HTML output file (default: 'out.tsv').")
 
 args = parser.parse_args() 
 
@@ -236,11 +238,30 @@ f.write('        <th>Bias</th>'+'\n')
 f.write('      </tr>'+'\n')
 f.write('<thead>'+'\n')
 
+r_value_lst = []
+r_square_lst = []
+b_lst = []
+r_lst = []
+s_lst = []
+RMSE_v_lst = []
+NRMSE_v_lst = []
+
+
 for c in args.column_1.split(','):
     _,_,r_value, r_square = Reg(df,c, args.column_2)
+
     b = Bias_abs(df, args.column_2, c)
     r, s= R(df, args.column_2, c)
     RMSE_v, NRMSE_v =  RMSE(df, args.column_2, c)
+
+    r_value_lst.append(r_value)
+    r_square_lst.append(r_square)
+    b_lst.append(b)
+    r_lst.append(r[1])
+    s_lst.append(s[1])
+    RMSE_v_lst.append(RMSE_v)
+    NRMSE_v_lst.append(NRMSE_v)
+
 
     f.write('      <tr>'+'\n')
     f.write('        <td>'+str(round(float(r[1]),2))+ u"\u00B1" +str(round(float(r[2]),2))+'</td>'+'\n')
@@ -252,6 +273,11 @@ for c in args.column_1.split(','):
     f.write('        <td>'+str(b)+'</td>'+'\n')
     f.write('      <tr>'+'\n')
 
+out_df = pd.DataFrame([r_value_lst, r_square_lst, b_lst, r_lst, s_lst, RMSE_v_lst, NRMSE_v_lst])
+out_df_T= out_df.T
+out_df_T.columns = ['Intercept', 'R Squre', 'Bias', 'r', 'Slop', 'RMSE', 'NRMSE' ]
+
+out_df_T.to_csv( 'out.tsv', sep="\t",  index=False)
 
 f.write(a2)
 f.close()

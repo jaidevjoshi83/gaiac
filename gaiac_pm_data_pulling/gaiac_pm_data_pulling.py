@@ -7,9 +7,6 @@ from base64 import urlsafe_b64encode
 from html import escape
 from urllib.parse import urljoin
 import requests
-
-log = logging.getLogger("tools.iuc.data_managers.data_manager_refgenie_pull")
-
 import urllib.request
 import json
 
@@ -57,4 +54,4 @@ def simulate_dynamic_options(ip):
 
 if __name__ == '__main__':
 
-    simulate_dynamic_options('http://iotprojects.ddns.net')
+    print(simulate_dynamic_options('http://iotprojects.ddns.net'))
