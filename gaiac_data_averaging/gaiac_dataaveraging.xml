@@ -17,7 +17,7 @@
     ]]></command>
 
   <inputs>
-    <param name="input" type="data" label="Input file" format="tabular" argument= "--InFile" help="Input csv data file."/>
+    <param name="input" type="data" label="Input file" format="tabular,tsv" argument= "--InFile" help="Input csv data file."/>
     <param name="Column" type='data_column' data_ref="input"  label="Time Stamp column" argument="--dt_column" multiple="False" use_header_names="true" help="Class Label ex. 0 or 1">
       <validator type="no_options" message="Please select any one column."/>
     </param>
